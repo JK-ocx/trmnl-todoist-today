@@ -8,15 +8,25 @@ This is a personal project relating to the [TRMNL](https://usetrmnl.com/) e-ink 
  
 This repo contains the Private Plugin code (Liquid Markdown), and a python proxy script to hook your data up (run using cron on a rpi or something).
 
-The Todoist data is collected, sorted by due date, then priority, compacted a bit given TRMNL has a 2KB limit, and pushed to the TRMNL servers via a webhook. This allows TRMNL to hold the data on their servers, and populate your private plugin using the TRMNL Markup.
+* Todoist data is collected (filer: `today | overdue`)
+* Sorted by due date
+* Sorted by priority
+* Compacted a bit (given TRMNL has a 2KB limit)
+* Pushed to the TRMNL servers via a webhook. 
+ 
+This allows TRMNL to hold the data on their servers, and populate your private plugin using the TRMNL Markup.
 
 ![Example full device view](example_full.png)
 
 ## Skill level required to do this?
 
-You'll need to be comfortable running python, getting keys from Todoist, and configuring TRMNL. Medium spice: 🌶️🌶️.
+You'll need to be comfortable running python, getting keys from Todoist, and configuring TRMNL. 
 
-Hopefully the great team at TRMNL can improve the Native Todoist plugin to support the "Today" view with sorting.
+* Medium spice: 🌶️🌶️
+
+Hopefully the great team at TRMNL can improve the Native Todoist plugin to support the "Today" view.
+
+> **Update 2025-05-14**: TRMNL native Todoist plugin now supports "Today" in the Project dropdown, but the default sort order is "Workspace".
 
 ## How is this repo laid out?
 
@@ -53,10 +63,10 @@ You'll want to visit [https://developer.todoist.com/appconsole.html](https://dev
 * App Name: "TRMNL"
 * App service URL: "https://usetrmnl.com/" (optional)
 
-Next you will be presented with a Client ID and Client secret. You'll need to copy these into the `proxy_layer\.env` file.
+You will then be presented with a **Client ID** and **Client secret**. Copy these into the `proxy_layer\.env` file (details below).
 
-* Set OAuth redirect URL: "http://localhost:8080/callback"
-* Click Save Settings
+* Set OAuth redirect URL to: "http://localhost:8080/callback"
+* Click "Save Settings"
 
 ### Step 2: Configure TRMNL
 
@@ -91,8 +101,8 @@ Python 3.10.1
 
 # Setup a virtual environment to hold our packages
 $ python -m venv venv
-$ .\\venv\\Scripts\\activate     # for WINDOWS
-$ . venv/bin/activate            # for LINUX
+$ .\venv\Scripts\activate       # for WINDOWS
+$ . venv/bin/activate           # for LINUX
 (venv) $ pip install -r requirements.txt
 ````
 
@@ -142,23 +152,40 @@ To test with REAL data, you can take the JSON you generated above, convert that 
 
 ### Step 5: Go live in TRMNL
 
-We'll need a shell to run the main python file `todoist-update-trmnl.py`
+Back in your private plugin view, you can select "Ediyt Markup" to paste in the following Liquid:
+
+* `plugin\src\full.liquid` > Full
+* `plugin\src\half_horizontal.liquid` > Half horizontal
+* `plugin\src\half_vertical.liquid` > Half vertical
+* `plugin\src\quadrant.liquid` > Quadrant
+
+The "Your variables" section should show the data you just posted via the webhook. Save you changes.
+
+You can now assign this plugin to your playlists.
+
+### Step 6: Keep it running
+
+I run `$ python todoist-update-trmnl.py` on an old Raspberry Pi. It runs on a CRON schedule every 15 mins to pull the todoist data, and push to TRMNL webhook.
 
 ````bash
-$ cd server
+$ git clone https://github.com/JK-ocx/trmnl-todoist-today.git
+$ cd trmnl-todoist-today/proxy_layer/
 $ python -m venv venv
-$ ./venv/bin/activate
-# on WINDOWS \> .\venv\scripts\activate
-(venv) $ pip install -r requirements.txt
-(venv) $ python todoist-update-trmnl.py
+$ . venv/bin/activate
+$ python -m pip install -r requirements.txt
+
+$ chmod +x todoist_trmnl.sh
+$ ./todoist_trmnl.sh
+# You may need to test on a dev box and copy over access_token.json if you don't have a browser to auth via
 ````
 
-This last command will get you to authenticate through your browser. The OAuth2 flow will callback to your app on `http://localhost:8080/callback` to supply a Todoist Access Token. This will be cached in the local file `access_token.json` until expiry, at which point, you'll need to re-auth.
+````bash
+$ crontab -e
 
-Your `.env` file should look something like this:
-```
-TODOIST_CLIENT_ID="abcdabcdabcdabcdabcdabcdabcdabcd"
-TODOIST_CLIENT_SECRET="abcdabcdabcdabcdabcdabcdabcdabcd"
-TRMNL_API_KEY="Base64_API_KEY_HERE"
-TRMNL_PLUGIN_ID="Plugin_UUID_HERE"
-```
+# Every 15 mins
+*/15 * * * * /home/user/trmnl-todoist-today/proxy_layer/todoist_trmnl.sh >> /home/user/trmnl-todoist-today/proxy_layer/todoist_trmnl.log 2>&1
+````
+
+Works a treat for me...
+
+![Real example](real_full.png)

@@ -3,3 +3,4 @@ venv/
 .pyc
 access_token.json
 *.old
+*.log
