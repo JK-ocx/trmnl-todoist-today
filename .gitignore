@@ -1,0 +1,5 @@
+.env
+venv/
+.pyc
+access_token.json
+*.old

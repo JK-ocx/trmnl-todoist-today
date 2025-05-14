@@ -1,0 +1,93 @@
+# TRMNLP configuration
+# {{ env.VARIABLE }} interpolation is available here
+---
+# auto-reload when files change (`watch: false` to disable)
+watch:
+  - .trmnlp.yml
+  - src
+
+# values of custom fields (defined in src/settings.yml)
+custom_fields: {}
+
+# override variables
+variables:
+  trmnl:
+    user:
+      name: JK_ocx
+  checked: 1747254167
+  filter: today | overdue
+  status: Checking
+  tasks:
+  - name: "Review pull requests on UI components"
+    prio: 1
+    due: 1d ago
+    proj: "# Project 1"
+  - name: Book venue for Workshop
+    prio: 1
+    due: 2h ago
+    proj: "# Workshop"
+  - name: Organise media and food for Workshop
+    prio: 1
+    due: today
+    proj: "# Workshop"
+  - name: Document trmnlp experiences
+    prio: 2
+    due: today
+    proj: "# Inbox"
+  - name: Spin up new MCPs in offline env
+    prio: 2
+    due: today
+    proj: "# AI"
+  - name: PD2Markdown via markitdown
+    prio: 3
+    due: today
+    proj: "# AI"
+  - name: Review subscriptions and cloud billing
+    prio: 4
+    due: today
+    proj: "# Inbox"
+  - name: Cut grass
+    prio: 4
+    due: today
+    proj: "# Inbox"
+  - name: Buy more bin bags
+    prio: 4
+    due: today
+    proj: "# Inbox"
+  - name: Order new recycling bag
+    prio: 4
+    due: today
+    proj: "# Inbox"
+  - name: Moar tasks
+    prio: 4
+    due: today
+    proj: "# Inbox"
+  - name: Moar tasks
+    prio: 4
+    due: today
+    proj: "# Inbox"
+  - name: Moar tasks
+    prio: 4
+    due: today
+    proj: "# Inbox"
+  - name: Moar tasks
+    prio: 4
+    due: today
+    proj: "# Inbox"
+  - name: Moar tasks
+    prio: 4
+    due: today
+    proj: "# Inbox"
+  - name: Moar tasks
+    prio: 4
+    due: today
+    proj: "# Inbox"
+  - name: Moar tasks
+    prio: 4
+    due: today
+    proj: "# Inbox"
+  - name: Moar tasks
+    prio: 4
+    due: today
+    proj: "# Inbox"
+  

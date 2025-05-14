@@ -1,0 +1,30 @@
+<div class="layout">
+<div class="columns">
+<div class="column">
+<div class="list" data-list-limit="true" data-list-max-height="160" data-list-hidden-count="true" data-list-max-columns="1">
+{% for task in tasks %}
+<div class="item" style="">
+  <div class="meta" style="width: 30px; padding: 2px;">
+  {% assign prio_class = "label--underline" %}
+    {% case task.prio %}
+        {% when 1 %}
+        {% assign prio_class = "label--inverted" %}
+        {% when 2 %}
+        {% assign prio_class = "label--outline" %}
+        {% when 3 %}
+        {% assign prio_class = "label--outline" %}
+    {% endcase %}
+    <span class="label label--small {{ prio_class }}">P{{ task.prio }}</span></div>
+  <div class="content" data-content-limiter="true">
+    <span class="title title--small" style="font-size: 10pt">{{ task.name }}</span>
+  </div>
+</div>
+{% endfor %}
+</div>
+</div>
+</div>
+</div>
+<div class="title_bar">
+  <img class="image" src="https://usetrmnl.com/images/plugins/todoist.svg" />
+  <span class="title">Todoist: Today | Overdue</span>
+</div>

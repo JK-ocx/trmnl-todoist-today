@@ -1,0 +1,5 @@
+requests
+dotenv
+tzdata
+todoist-api-python
+humanize
