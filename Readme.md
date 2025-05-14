@@ -2,7 +2,7 @@
 
 ## What is this?
 
-This is a personal project relating to the [TRMNL](https://usetrmnl.com/) e-ink display, that proxies an authenticated connection to the Todoist API to fetches tasks using the filter `today | overdue`, before pushing that data to the TRMNL webhook for use in a private plugin.
+This is a personal project relating to the [TRMNL](https://usetrmnl.com/) e-ink display, that proxies an authenticated connection to the Todoist API to fetch tasks using the filter `today | overdue`, before pushing that data to the TRMNL webhook for use in a private plugin.
 
 > ℹ️ **Info:** This is the same filter shown on the native Todoist apps when you select the **Today** button. 
  
