@@ -45,6 +45,11 @@ trmnl-todoist-today
 │   ├── .trmnlp.yml
 │   ├── bin
 │   └── src
+│       ├── full.liquid
+│       ├── half_horizontal.liquid
+│       ├── half_vertical.liquid
+│       ├── quadrant.liquid
+│       └── settings.yml
 ├── proxy_layer
 │   ├── .env                            # You create this
 │   ├── access_token.json               # PY creates this
@@ -152,7 +157,7 @@ To test with REAL data, you can take the JSON you generated above, convert that 
 
 ### Step 5: Go live in TRMNL
 
-Back in your private plugin view, you can select "Ediyt Markup" to paste in the following Liquid:
+Back in your private plugin view, you can select "Edit Markup" to paste in the following Liquid:
 
 * `plugin\src\full.liquid` > Full
 * `plugin\src\half_horizontal.liquid` > Half horizontal
